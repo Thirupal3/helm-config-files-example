@@ -1,0 +1,6 @@
+This chart will spin up one {{ .Values.image.repository }}:{{ .Values.image.tag}} pod.
+
+It will execute `sleep` command for a year. This will give you time to check for config files created using a configmap in /tmp
+
+kubectl exec --stdin --tty {{ .Release.Name }}-{{ .Chart.Name }} -- cat /tmp/config1.xml
+kubectl exec --stdin --tty {{ .Release.Name }}-{{ .Chart.Name }} -- cat /tmp/config2.yaml

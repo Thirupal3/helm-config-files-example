@@ -1,0 +1,26 @@
+image:
+  repository: alpine
+  pullPolicy: IfNotPresent
+  tag: "3"
+
+volumes:
+- name: logs-volume
+  emptyDir: {}
+- name: config-volume
+  configMap:
+    name: config-cm
+    items:
+    - key: config1.xml
+      path: config1.xml
+    - key: config2.yaml
+      path: config2.yaml
+
+volumeMounts:
+- name: config-volume
+  mountPath: /tmp/config1.xml
+  subPath: config1.xml
+- name: config-volume
+  mountPath: /tmp/config2.yaml
+  subPath: config2.yaml
+- name: logs-volume
+  mountPath: /logs

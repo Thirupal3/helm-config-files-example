@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "helm-config-files-example.fullname" . }}
+  labels:
+  {{- include "helm-config-files-example.labels" . | nindent 4 }}
+
+spec:
+  containers:
+  - name: {{ .Chart.Name }}
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+    command: ["sleep", "365d"]
+
+    {{- with .Values.volumeMounts }}
+    volumeMounts:
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+
+  {{- with .Values.volumes }}
+  volumes:
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
